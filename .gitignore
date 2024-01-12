@@ -1,0 +1,3 @@
+/tmp*
+*.code-workspace
+.Rproj.user
