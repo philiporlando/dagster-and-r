@@ -4,16 +4,14 @@ This is a [Dagster](https://dagster.io/) project scaffolded with [`dagster proje
 
 ## Getting started
 
-First, install your Dagster code location as a Python package. By using the --editable flag, pip will install your Python package in ["editable mode"](https://pip.pypa.io/en/latest/topics/local-project-installs/#editable-installs) so that as you develop, local code changes will automatically apply.
-
-```bash
-pip install -e ".[dev]"
-```
+1. Clone the repository: `git clone https://github.com/philiporlando/dagster-and-r.git`
+2. Navigate to the repository directory: `cd dagster-and-r`
+3. Install the package and its dependencies with [poetry](https://python-poetry.org/): `poetry install`
 
 Then, start the Dagster UI web server:
 
 ```bash
-dagster dev
+poetry run dagster dev
 ```
 
 Open http://localhost:3000 with your browser to see the project.
@@ -25,19 +23,21 @@ You can start writing assets in `dagster_and_r/assets.py`. The assets are automa
 
 ### Adding new Python dependencies
 
-You can specify new Python dependencies in `setup.py`.
+```bash
+poetry add <pkg-name>
+```
 
 ### Unit testing
 
 Tests are in the `dagster_and_r_tests` directory and you can run tests using `pytest`:
 
 ```bash
-pytest dagster_and_r_tests
+poetry run pytest dagster_and_r_tests
 ```
 
 ### Schedules and sensors
 
-If you want to enable Dagster [Schedules](https://docs.dagster.io/concepts/partitions-schedules-sensors/schedules) or [Sensors](https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors) for your jobs, the [Dagster Daemon](https://docs.dagster.io/deployment/dagster-daemon) process must be running. This is done automatically when you run `dagster dev`.
+If you want to enable Dagster [Schedules](https://docs.dagster.io/concepts/partitions-schedules-sensors/schedules) or [Sensors](https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors) for your jobs, the [Dagster Daemon](https://docs.dagster.io/deployment/dagster-daemon) process must be running. This is done automatically when you run `poetry run dagster dev`.
 
 Once your Dagster Daemon is running, you can start turning on schedules and sensors for your jobs.
 
