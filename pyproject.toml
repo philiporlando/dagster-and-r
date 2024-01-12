@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "dagster-and-r"
+version = "0.1.0"
+description = ""
+authors = ["A042474 <philip.j.orlando@kp.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dagster = "^1.5.14"
+dagster-webserver = "^1.5.14"
+pytest = "^7.4.4"
+dagster-docker = "^0.21.14"
+matplotlib = "^3.8.2"
+pandas = "^2.1.4"
+requests = "^2.31.0"
+
+[tool.dagster]
+module_name = "dagster_and_r"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
