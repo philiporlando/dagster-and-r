@@ -12,6 +12,7 @@ from dagster import (
     AssetExecutionContext,
     MetadataValue,
     asset,
+    AssetCheckSpec,
     MaterializeResult,
     PipesSubprocessClient,
     file_relative_path,
@@ -31,7 +32,10 @@ def hello_world_r(
     ).get_materialize_result()
 
 
-@asset(config_schema={"output_dir": Field(String, default_value="./data")})
+@asset(
+    config_schema={"output_dir": Field(String, default_value="./data")},
+    check_specs=[AssetCheckSpec(name="no_missing_sepal_length_check_r", asset="iris_r")],
+    )
 def iris_r(
     context: AssetExecutionContext,
     pipes_subprocess_client: PipesSubprocessClient,

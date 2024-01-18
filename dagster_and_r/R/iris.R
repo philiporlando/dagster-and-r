@@ -24,13 +24,12 @@ with(open_dagster_pipes() %as% pipes, {
     context$log$info(os$environ["MY_ENV_VAR_IN_SUBPROCESS"])
     output_dir <- Sys.getenv("OUTPUT_DIR")
     context$log$info(glue::glue("output_dir: {output_dir}"))
-    # TODO troubleshoot asset checks
-    # context$report_asset_materialization() # method not available?
-    # context$report_asset_check(
-    #     asset_key="my_r_asset_with_context",
-    #     passed=all(!is.na(iris$Sepal.Length)),
-    #     check_name="no_missing_sepal_length"
-    # )
+    context$report_asset_materialization() # method not available?
+    context$report_asset_check(
+        asset_key="iris_r",
+        passed=reticulate::r_to_py(all(!is.na(iris$Sepal.Length))),
+        check_name="no_missing_sepal_length_check_r",
+    )
     # Write iris data to csv so it can be read by a downstream Python asset
     readr::write_csv(iris, glue::glue("{output_dir}/iris.csv"))
 })
