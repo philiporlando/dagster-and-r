@@ -34,7 +34,10 @@ def hello_world_r(
 
 @asset(
     config_schema={"output_dir": Field(String, default_value="./data")},
-    check_specs=[AssetCheckSpec(name="no_missing_sepal_length_check_r", asset="iris_r")],
+    check_specs=[
+        AssetCheckSpec(name="no_missing_sepal_length_check_r", asset="iris_r"),
+        AssetCheckSpec(name="species_name_check_r", asset="iris_r"),
+        ],
     )
 def iris_r(
     context: AssetExecutionContext,

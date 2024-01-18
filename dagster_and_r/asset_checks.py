@@ -9,6 +9,7 @@ from dagster import (
     file_relative_path,
 )
 
+# TODO figure out how to use this syntax with pipes subprocesses (instead of CheckSpecs)?
 @asset_check(asset="iris_r")
 def no_missing_sepal_length_check_r(
     context: AssetExecutionContext,
