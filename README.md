@@ -65,7 +65,7 @@ You can start writing assets in `dagster_and_r/assets.py`. The assets are automa
 
 - [x] Pass logs between an external R session and Dagster
 - [x] Pass environment variables and context between an external R session and Dagster
-- [x] Define asset checks within R script that are integrated with Dagster
+- [x] Asset checks defined in R
 - [ ] [In-memory data passing](https://github.com/dagster-io/dagster/discussions/18972#discussioncomment-8113649) 
 - [ ] Pass markdown metadata between R and Dagster (e.g. `head()` of a data.frame))
 
