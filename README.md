@@ -41,7 +41,7 @@ To begin exploring the integration of Dagster and R:
 ![Dagster UI Materialized](./img/dagster-ui-materialized.PNG)   
 
 6. **Inspect the Run**
-   Click the "Runs" tab and navigate to the latest run of the pipeline to view more details. This includes custom logs executed from within the external R code, environment variables, etc. 
+   Click the "Runs" tab and navigate to the latest run of the pipeline to view more details,including custom logs and environment variables being passed from an external R session.
 
 ![Dagster UI Run](./img/dagster-ui-run-highlights.PNG)   
 
