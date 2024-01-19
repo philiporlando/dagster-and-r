@@ -1,16 +1,8 @@
-import base64
-import requests
-import json
-import os
 import shutil
-from io import BytesIO
-
-import matplotlib.pyplot as plt
 import pandas as pd
 
 from dagster import (
     AssetExecutionContext,
-    MetadataValue,
     asset,
     AssetCheckSpec,
     MaterializeResult,
