@@ -1,48 +1,100 @@
 # dagster_and_r
 
-This is a [Dagster](https://dagster.io/) project scaffolded with [`dagster project scaffold`](https://docs.dagster.io/getting-started/create-new-project).
+Exploring the synergy between [Dagster](https://dagster.io/), a modern data orchestrator, and R, a powerful statistical programming language. This project showcases how business logic written in R can be integrated seamlessly within tje Dagster framework. 
+
+## Key Features
+
+- **Docker Integration**: Execute R code in isolated environments using [Docker container ops](https://docs.dagster.io/_apidocs/libraries/dagster-docker).
+- **Dagster Pipes**: Run R scripts within a subprocess, leveraging Dagster's experimental [Pipes](https://docs.dagster.io/_apidocs/pipes#pipes) feature.
+- **Reticulate Bridge**: Utilize the [{reticulate}](https://rstudio.github.io/reticulate/) R package to create a bridge between Python and R, enhancing interoperability.
 
 ## Getting started
 
-1. Clone the repository: `git clone https://github.com/philiporlando/dagster-and-r.git`
-2. Navigate to the repository directory: `cd dagster-and-r`
-3. Install the package and its dependencies with [poetry](https://python-poetry.org/): `poetry install`
+To begin exploring the integration of Dagster and R:
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/philiporlando/dagster-and-r.git
+   ```
+2. **Navigate to Directory**
+   ```bash
+   cd dagster-and-r
+   ```
+3. **Install Dependencies**
+   Using [poetry](https://python-poetry.org/), install the package and its dependencies:
+   ```bash
+   poetry install
+   ```
+
+4. **Launch the Dagster UI**
+   Start the Dagster web server:
+   ```bash
+   poetry run dagster dev
+   ```
+   Access the UI at http://localhost:3000 in your browser.
+
+![Dagster UI Never Materialized](./img/dagster-ui-never-materialized.PNG)
+
+5. **Materialize Assets** 
+   Click the "Materialize all" button in the top right of the UI. Each of the assets within this project should materialize without error. 
+
+![Dagster UI Materialized](./img/dagster-ui-materialized.PNG)   
+
+6. **Inspect the Run**
+   Click the "Runs" tab and navigate to the latest run of the pipeline to view more details. This includes custom logs executed from within the external R code, environment variables, etc. 
+
+![Dagster UI Run](./img/dagster-ui-run-highlights.PNG)   
+
+7. **Create Assets**
+   Begin writing assets in `dagster_and_r/assets.py`. They are automatically loaded into the Dagster code location.
+
 
 Then, start the Dagster UI web server:
 
 ```bash
-poetry run dagster dev
+poetry run dagster dev -m dagster_and_r
 ```
 
 Open http://localhost:3000 with your browser to see the project.
 
 You can start writing assets in `dagster_and_r/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
 
-## Development
+## Current Integrations
 
+### Dagster Pipes
 
-### Adding new Python dependencies
+- [x] Pass logs between an external R session and Dagster
+- [x] Pass environment variables and context between an external R session and Dagster
+- [x] Define asset checks within R script that are integrated with Dagster
+- [ ] [In-memory data passing](https://github.com/dagster-io/dagster/discussions/18972#discussioncomment-8113649) 
+- [ ] Pass markdown metadata between R and Dagster (e.g. `head()` of a data.frame))
 
+### Docker Container Op
+
+- [x] Execute external R code from a Docker container op. 
+
+## Development Guide
+
+### Adding Python Dependencies
+To add new Python packages to the project:
 ```bash
 poetry add <pkg-name>
 ```
 
-### Unit testing
-
-Tests are in the `dagster_and_r_tests` directory and you can run tests using `pytest`:
-
+### Unit Testing
+Unit tests are essential for ensuring code reliability and are currently being developed. Run existing tests using `pytest`:
 ```bash
 poetry run pytest dagster_and_r_tests
 ```
+> [!NOTE]
+> Unit tests are a work in progress.
 
-### Schedules and sensors
+### Schedules and Sensors
+To enable [Schedules](https://docs.dagster.io/concepts/partitions-schedules-sensors/schedules) and [Sensors](https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors), ensure the [Dagster Daemon](https://docs.dagster.io/deployment/dagster-daemon) is active:
+```bash
+poetry run dagster dev
+```
+With the Daemon running, you can start using schedules and sensors for your jobs.
 
-If you want to enable Dagster [Schedules](https://docs.dagster.io/concepts/partitions-schedules-sensors/schedules) or [Sensors](https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors) for your jobs, the [Dagster Daemon](https://docs.dagster.io/deployment/dagster-daemon) process must be running. This is done automatically when you run `poetry run dagster dev`.
-
-Once your Dagster Daemon is running, you can start turning on schedules and sensors for your jobs.
-
-## Deploy on Dagster Cloud
-
-The easiest way to deploy your Dagster project is to use Dagster Cloud.
-
-Check out the [Dagster Cloud Documentation](https://docs.dagster.cloud) to learn more.
+## Contributions
+Contributions to enhance or expand the project are welcome! Feel free to fork the repository, make changes, and submit a pull request.
