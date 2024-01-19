@@ -36,6 +36,9 @@ def hello_world_r(
     config_schema={"output_dir": Field(String, default_value="./data")},
     check_specs=[
         AssetCheckSpec(name="no_missing_sepal_length_check_r", asset="iris_r"),
+        AssetCheckSpec(name="no_missing_sepal_width_check_r", asset="iris_r"),
+        AssetCheckSpec(name="no_missing_petal_length_check_r", asset="iris_r"),
+        AssetCheckSpec(name="no_missing_petal_width_check_r", asset="iris_r"),
         AssetCheckSpec(name="species_name_check_r", asset="iris_r"),
         ],
     )

@@ -33,6 +33,27 @@ with(open_dagster_pipes() %as% pipes, {
         check_name="no_missing_sepal_length_check_r",
     )
 
+    # Ensure that Sepal.Width field does not contain any NAs
+    context$report_asset_check(
+        asset_key="iris_r",
+        passed=reticulate::r_to_py(all(!is.na(iris$Sepal.Width))),
+        check_name="no_missing_sepal_width_check_r",
+    )
+
+    # Ensure that Sepal.Length field does not contain any NAs
+    context$report_asset_check(
+        asset_key="iris_r",
+        passed=reticulate::r_to_py(all(!is.na(iris$Petal.Length))),
+        check_name="no_missing_petal_length_check_r",
+    )
+
+    # Ensure that Sepal.Width field does not contain any NAs
+    context$report_asset_check(
+        asset_key="iris_r",
+        passed=reticulate::r_to_py(all(!is.na(iris$Petal.Width))),
+        check_name="no_missing_petal_width_check_r",
+    )
+
     # Ensure that Species field contains expected set of values
     context$report_asset_check(
         asset_key="iris_r",
