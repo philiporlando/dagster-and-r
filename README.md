@@ -33,7 +33,7 @@ Determine the path to the python binary associated with this project's poetry en
    which python
    # /home/user/.cache/pypoetry/virtualenvs/dagster-and-r-kS5e8P_l-py3.10/bin/python
    ```
-Create a new `.Renviron` file at the root of the project and add set the `RETICULATE_PYTHON` variable to this path.
+Create a new `.Renviron` file at the root of the project and set the `RETICULATE_PYTHON` variable to this path.
 
 5. **Launch the Dagster UI**
    Start the Dagster web server:
