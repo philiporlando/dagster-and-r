@@ -26,7 +26,16 @@ To begin exploring the integration of Dagster and R:
    poetry install
    ```
 
-4. **Launch the Dagster UI**
+4. **Set RETICULATE_PYTHON environment variable** 
+Determine the path to the python binary associated with this project's poetry environment.
+   ```bash
+   poetry run
+   which python
+   # /home/user/.cache/pypoetry/virtualenvs/dagster-and-r-kS5e8P_l-py3.10/bin/python
+   ```
+Create a new `.Renviron` file at the root of the project and add set the `RETICULATE_PYTHON` variable to this path.
+
+5. **Launch the Dagster UI**
    Start the Dagster web server:
    ```bash
    poetry run dagster dev
@@ -35,17 +44,17 @@ To begin exploring the integration of Dagster and R:
 
 ![Dagster UI Never Materialized](./img/dagster-ui-never-materialized.PNG)
 
-5. **Materialize Assets** 
+6. **Materialize Assets** 
    Click the "Materialize all" button in the top right of the UI. Each of the assets within this project should materialize without error. 
 
 ![Dagster UI Materialized](./img/dagster-ui-materialized.PNG)   
 
-6. **Inspect the Run**
+7. **Inspect the Run**
    Click the "Runs" tab and navigate to the latest run of the pipeline to access detailed information, including custom logs, asset checks, and environment variables being passed from an external R session.
 
 ![Dagster UI Run](./img/dagster-ui-run-highlights.PNG)   
 
-7. **Create Assets**
+8. **Create Assets**
    Begin writing assets in `dagster_and_r/assets.py`. They are automatically loaded into the Dagster code location.
 
 
