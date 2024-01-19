@@ -13,9 +13,6 @@ from . assets import (
     hello_world_r,
     iris_r,
     iris_py,
-    topstories,
-    topstory_ids,
-    most_frequent_words,
     )
 
 defs = Definitions(
@@ -23,9 +20,6 @@ defs = Definitions(
         hello_world_r,
         iris_r,
         iris_py,
-        topstories,
-        topstory_ids,
-        most_frequent_words,
         ],
     asset_checks=[
         # no_missing_sepal_length_check_r,
