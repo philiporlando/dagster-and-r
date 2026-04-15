@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This repository is no longer maintained. It was an early experiment in integrating Dagster with R.
+> For a proper implementation of the [Dagster Pipes protocol](https://docs.dagster.io/integrations/external-pipelines/dagster-pipes-details-and-customization) in R, see [**{dagsterpipes}**](https://github.com/joekirincic/dagsterpipes).
+
 # dagster_and_r
 
 Exploring the synergy between [Dagster](https://dagster.io/), a modern data orchestrator, and R, a powerful statistical programming language. This project showcases how business logic written in R can be integrated seamlessly within the Dagster framework. 
