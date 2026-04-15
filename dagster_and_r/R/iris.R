@@ -1,3 +1,4 @@
+# make sure these packages are installed
 library(reticulate)
 library(readr)
 library(glue)
@@ -6,6 +7,36 @@ library(magrittr)
 # Ensure that RETICULATE_PYTHON is set to the poetry path
 reticulate::py_config()
 stopifnot(reticulate::py_module_available("dagster_pipes"))
+
+# Function to convert R types to Python types
+convert_r_to_python_types <- function(df) {
+    # Get R types
+    r_types <- sapply(df, class)
+    
+    # Define type mapping
+    type_mapping <- list(
+        "numeric" = "float",
+        "integer" = "int",
+        "character" = "str",
+        "factor" = "str",
+        "logical" = "bool",
+        "Date" = "datetime.date",
+        "POSIXct" = "datetime.datetime",
+        "POSIXlt" = "datetime.datetime"
+    )
+    
+    # Convert types
+    python_types <- sapply(r_types, function(x) {
+        if (x %in% names(type_mapping)) {
+            type_mapping[[x]]
+        } else {
+            "object"  # default type
+        }
+    })
+    
+    return(reticulate::r_to_py(as.list(python_types)))
+}
+
 
 # Import Python modules
 # R doesn't support selective imports like Python, so you have to do this
@@ -23,9 +54,20 @@ with(open_dagster_pipes() %as% pipes, {
     context$log$info(head(iris))
     context$log$info(os$environ["MY_ENV_VAR_IN_SUBPROCESS"])
     output_dir <- Sys.getenv("OUTPUT_DIR")
+    iris_head <- head(iris)
     context$log$info(glue::glue("output_dir: {output_dir}"))
-    context$report_asset_materialization() 
-
+    #python function to report back the materialization and metadata
+    context$report_custom_message(
+        payload = reticulate::r_to_py(list(
+        "dagster/row_count" = nrow(iris),
+         # if using report_asset_materialization 
+         #list( type = "md", "raw_value" = paste(knitr::kable(iris_head, format = "pipe"), collapse = "\n") ),
+        "preview" = paste(knitr::kable(iris_head, format = "pipe"), collapse = "\n"),
+        "iris_head_df" = reticulate::r_to_py(jsonlite::toJSON(x = iris_head, dataframe = "columns")),
+        "column_types" = convert_r_to_python_types(iris_head)
+    ))
+    )
+    context$log$info(glue::glue("got here!"))
     # Ensure that Sepal.Length field does not contain any NAs
     context$report_asset_check(
         asset_key="iris_r",

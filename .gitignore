@@ -153,3 +153,4 @@ dmypy.json
 .pyre/
 
 !.gitkeep
+.DS_Store

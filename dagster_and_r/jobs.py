@@ -1,7 +1,7 @@
-from dagster import job
+import dagster as dg
 from . ops import first_op, second_op
 
 
-@job
+@dg.job
 def docker_container_op_r():
     second_op(first_op())
